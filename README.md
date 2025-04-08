@@ -38,7 +38,7 @@ iex -S mix
 
 Events must follow the JSON format below:
 
-```json
+```
 {
   "event": "amount_received" | "amount_requested",
   "user_id": <integer>,
