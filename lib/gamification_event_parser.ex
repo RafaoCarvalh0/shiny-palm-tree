@@ -1,4 +1,7 @@
 defmodule GamificationEventParser do
+  @moduledoc """
+  This module is responsible for parsing the raw JSON data into an event map.
+  """
   @type event_map ::
           %{
             required(:event) => String.t(),
@@ -16,7 +19,7 @@ defmodule GamificationEventParser do
     |> Enum.map(&String.split(&1, ":"))
     |> Enum.reduce_while(%{}, fn [key | value], acc ->
       key
-      |> String.to_existing_atom()
+      |> String.to_atom()
       |> build_event_map(value, acc)
       |> case do
         {:error, error} ->
