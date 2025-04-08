@@ -21,3 +21,6 @@ testing_mix-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+# ls files
+.elixir_ls/
