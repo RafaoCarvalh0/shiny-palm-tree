@@ -36,33 +36,10 @@ defmodule GamificationEvent do
          {:ok, _} <- validate_required_fields(event_map),
          {:ok, _} <- validate_event(event_map),
          {:ok, user_data} <- publish_user_event(event_map) do
-      Process.sleep(1500)
-
-      IO.puts("""
-
-      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-      Updated user data:
-      #{user_data}
-      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-      """)
-
-      Process.sleep(1500)
-      user_data
+      {:ok, user_data}
     else
       {:error, error} ->
-        Process.sleep(1500)
-
-        IO.puts("""
-
-        ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        Error:
-        #{error}
-        ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        """)
-
-        Process.sleep(1500)
-
-        error
+        {:error, error}
     end
   end
 

@@ -18,6 +18,33 @@ defmodule StartHere do
     """
     |> IO.gets()
     |> GamificationEvent.create_user_gamification_event()
+    |> case do
+      {:ok, user_data} ->
+        Process.sleep(1500)
+
+        IO.puts("""
+
+        ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        Updated user data:
+        #{user_data}
+        ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        """)
+
+        Process.sleep(1500)
+
+      {:error, error} ->
+        Process.sleep(1500)
+
+        IO.puts("""
+
+        ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        Error:
+        #{error}
+        ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        """)
+
+        Process.sleep(1500)
+    end
     |> init()
   end
 

@@ -6,7 +6,7 @@ defmodule GamificationEventTest do
     test "validates required fields" do
       raw_data = ~s({"event": "amount_received", "amount": 100})
 
-      assert "{\"error\": \"missing_required_fields\"}" =
+      assert {:error, "{\"error\": \"missing_required_fields\"}"} =
                GamificationEvent.create_user_gamification_event(raw_data)
     end
 
@@ -14,7 +14,7 @@ defmodule GamificationEventTest do
       raw_data =
         ~s({"event": "amount_received", "user_id": 1, "amount": 6000, "created_at": "2024-03-20T10:00:00Z"})
 
-      assert "{\"error\": \"amount_received_exceeded_limit\"}" =
+      assert {:error, "{\"error\": \"amount_received_exceeded_limit\"}"} =
                GamificationEvent.create_user_gamification_event(raw_data)
     end
 
@@ -22,7 +22,7 @@ defmodule GamificationEventTest do
       raw_data =
         ~s({"event": "amount_requested", "user_id": 1, "amount": 1500, "created_at": "2024-03-20T10:00:00Z"})
 
-      assert "{\"error\": \"amount_requested_exceeded_limit\"}" =
+      assert {:error, "{\"error\": \"amount_requested_exceeded_limit\"}"} =
                GamificationEvent.create_user_gamification_event(raw_data)
     end
 
@@ -30,7 +30,7 @@ defmodule GamificationEventTest do
       raw_data =
         ~s({"event": "amount_requested", "user_id": 1, "amount": -100, "created_at": "2024-03-20T10:00:00Z"})
 
-      assert "{\"error\": \"amount_requested_cannot_be_negative\"}" =
+      assert {:error, "{\"error\": \"amount_requested_cannot_be_negative\"}"} =
                GamificationEvent.create_user_gamification_event(raw_data)
     end
 
@@ -38,7 +38,7 @@ defmodule GamificationEventTest do
       raw_data =
         ~s({"event": "invalid_event", "user_id": 1, "amount": 100, "created_at": "2024-03-20T10:00:00Z"})
 
-      assert "{\"error\": \"invalid_event\"}" =
+      assert {:error, "{\"error\": \"invalid_event\"}"} =
                GamificationEvent.create_user_gamification_event(raw_data)
     end
   end
